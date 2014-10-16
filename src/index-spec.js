@@ -29,8 +29,10 @@ function PhoneNumberSink(source) {
 PhoneNumberSink.prototype = EventEmitter.prototype;
 PhoneNumberSink.prototype._handleSourceEvents = function() {
   var self = this;
+  this._counts = 0;
   this._source.on('new-phone-number', function() {
-    self.emit('update-count', 1);
+    self._counts++;
+    self.emit('update-count', self._counts);
   });
 };
 
@@ -78,6 +80,18 @@ describe('phone number sink', function() {
     sink.on('update-count', function(count) {
       expect(count).toBe(1);
       done();
+    });
+  });
+  it('should count two number', function(done) {
+    var initialNumbers = [123, 456];
+    var source = new PhoneNumberSource(initialNumbers);
+    var sink = new PhoneNumberSink(source);
+    source.start();
+    sink.on('update-count', function(count) {
+      if (count == 2) {
+        expect(count).toBe(2);
+        done();
+      }
     });
   });
 });
