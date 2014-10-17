@@ -24,11 +24,10 @@ class PhoneNumberSink extends EventEmitter
 
 
   _handleSourceEvents: ->
-    self = this
     @_counts = 0;
-    @_source.on 'new-phone-number', ->
-      self._counts++
-      self.emit 'update-count', self._counts
+    @_source.on 'new-phone-number', ~>
+      @_counts++
+      @emit 'update-count', @_counts
 
 
 
