@@ -13,11 +13,10 @@
       this._phoneNumbers = phoneNumbers;
     }
     prototype.start = function(){
-      var self, emitPhoneNumber;
-      self = this;
+      var emitPhoneNumber, this$ = this;
       emitPhoneNumber = function(phoneNumber){
         return setTimeout(function(){
-          return self.emit('new-phone-number', phoneNumber);
+          return this$.emit('new-phone-number', phoneNumber);
         }, 1);
       };
       return this._phoneNumbers.forEach(emitPhoneNumber);

@@ -10,10 +10,9 @@ class PhoneNumberSource extends EventEmitter
   (phoneNumbers) ->
     @_phoneNumbers = phoneNumbers
   start: ->
-    self = this
-    emitPhoneNumber = (phoneNumber) ->
-      setTimeout ->
-        self.emit 'new-phone-number', phoneNumber
+    emitPhoneNumber = (phoneNumber) ~>
+      setTimeout ~>
+        @emit 'new-phone-number', phoneNumber
       , 1
 
     @_phoneNumbers.forEach emitPhoneNumber
@@ -22,6 +21,7 @@ class PhoneNumberSink extends EventEmitter
   (source) ->
     @_source = source
     @_handleSourceEvents()
+
 
   _handleSourceEvents: ->
     self = this
