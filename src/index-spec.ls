@@ -4,7 +4,6 @@ describe 'test env' (void) -> # we need void, so LiveScript wont hijack `it`
 
 
 EventEmitter = require 'events' .EventEmitter
-# var sleep = require('sleep').sleep;
 
 class PhoneNumberSource extends EventEmitter
   (phoneNumbers) ->
