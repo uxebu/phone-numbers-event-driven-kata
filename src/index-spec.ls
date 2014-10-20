@@ -11,8 +11,8 @@ class PhoneNumberSource extends EventEmitter
   start: ->
     emitPhoneNumber = (phoneNumber) ~>
       setTimeout ~>
-        @emit 'new-phone-number', phoneNumber
-      , 1
+        @emit('new-phone-number', phoneNumber)
+      1
 
     @_phoneNumbers.forEach emitPhoneNumber
 
@@ -32,8 +32,8 @@ class PhoneNumberSink extends EventEmitter
 
 
 expectPhoneNumbers = (expectedNumbers, done) ->
-  source = new PhoneNumberSource(expectedNumbers);
-  actualNumbers = [];
+  source = new PhoneNumberSource expectedNumbers
+  actualNumbers = []
   source.on 'new-phone-number', (phoneNumber) ->
     actualNumbers.push(phoneNumber);
     if actualNumbers.length == expectedNumbers.length
@@ -58,8 +58,8 @@ describe 'phone number source' (void) ->
 describe 'phone number sink' (void) ->
   it 'should count one number', (done) ->
     initialNumbers = [123];
-    source = new PhoneNumberSource(initialNumbers);
-    sink = new PhoneNumberSink(source);
+    source = new PhoneNumberSource initialNumbers
+    sink = new PhoneNumberSink source
     source.start()
     sink.on 'update-count', (count) ->
       expect(count).toBe(1);
@@ -67,8 +67,8 @@ describe 'phone number sink' (void) ->
 
   it 'should count two number', (done) ->
     initialNumbers = [123, 456];
-    source = new PhoneNumberSource(initialNumbers);
-    sink = new PhoneNumberSink(source);
+    source = new PhoneNumberSource initialNumbers
+    sink = new PhoneNumberSink source
     source.start()
     sink.on 'update-count', (count) ->
       if count == 2
