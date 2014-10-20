@@ -1,0 +1,14 @@
+{
+  "name": "phoneNumbersKata",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine-node src"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
+  }
+}
